@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  height: 100vh;
+  padding: 20px;
+}
+
+.card {
+  background-color: #C26666; /* Warna latar belakang card */
+  color: white;
+  width: 480px;
+  height: 500px; /* Tinggi card lebih besar */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.icon {
+  width: 100px;  /* Ukuran ikon */
+  height: 100px; /* Ukuran ikon */
+  background-color: #fff; /* Placeholder untuk ikon */
+  margin-top: 10px; /* Jarak antara ikon dan teks */
+  border-radius: 5px;
+}
+
+.text h2 {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.highlight {
+  color: #4F1212; /* Warna teks 'HEAR' atau 'SPEAK' */
+}
