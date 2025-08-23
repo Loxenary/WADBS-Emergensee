@@ -1,0 +1,47 @@
+ {
+      "intents": {
+        "find_location": {
+            "keywords": ["di mana", "dmn", "mana", "cari", "lokasi", "letak", "ada di mana"], 
+            "responses": []
+        },
+        "greeting": {
+            "keywords": ["halo", "hai", "selamat pagi", "pagi", "selamat siang", "siang", "selamat sore", "sore", "selamat malam", "malam"], 
+            "responses": [
+                "Halo! Ada yang bisa saya bantu?", 
+                "Hai! Selamat datang di mal. Ada yang bisa dibantu?",
+                "Selamat datang! Silakan tanyakan jika butuh bantuan."
+            ]
+        },
+        "goodbye": {
+            "keywords": ["dah", "sampai jumpa", "selamat tinggal", "duluan ya"], 
+            "responses": [
+                "Sampai jumpa lagi!", 
+                "Selamat jalan!", 
+                "Hati-hati di jalan!"
+            ]
+        },
+        "thank_you": {
+            "keywords": ["terima kasih", "makasih", "tks", "thanks", "makasih ya"], 
+            "responses": [
+                "Sama-sama! Senang bisa membantu.", 
+                "Dengan senang hati!", 
+                "Tentu, kembali lagi jika butuh bantuan."
+            ]
+        },
+        "about_bot": {
+            "keywords": ["kamu siapa", "ini apa", "bisa apa"],
+            "responses": [
+                "Saya adalah asisten virtual mal. Saya bisa membantu Anda mencari lokasi.",
+                "Saya asisten untuk membantu navigasi di mal ini."
+            ]
+        },
+        "opening_hours": {
+            "keywords": ["buka jam berapa", "jam buka", "tutup jam berapa", "jam operasional"],
+            "responses": [
+                "Mal ini buka dari jam 10 pagi sampai 10 malam.",
+                "Jam operasional kami adalah dari pukul 10.00 hingga 22.00."
+            ]
+        }
+      },
+      "fallback_response": "Maaf, saya belum mengerti '{sentence}'. Coba tanyakan lokasi sesuatu."
+}

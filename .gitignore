@@ -1,0 +1,23 @@
+# Virtual Environment
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+
+# Environment variables (contains secrets)
+.env
+
+# Large Datasets (should not be in Git)
+BISINDO_Word_Dataset/
+SIBI_Alphabet_Dataset/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# User-generated data
+recorded_signs.csv

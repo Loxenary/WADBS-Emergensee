@@ -1,0 +1,10 @@
+{
+        "toko sepatu": {"lokasi": "Lantai 2, Sektor Barat", "deskripsi": "di dekat eskalator utama"},
+        "toilet": {"lokasi": "Lantai 1, Sektor Timur", "deskripsi": "di sebelah food court"},
+        "food court": {"lokasi": "Lantai 3, Sektor Timur", "deskripsi": "di dekat pintu masuk utama dari parkir P3"},
+        "bioskop": {"lokasi": "Lantai 4 (Paling Atas)", "deskripsi": "naik eskalator dari food court"},
+        "mushola": {"lokasi": "Lantai Basement 1 (B1)", "deskripsi": "di dekat area parkir motor"},
+        "supermarket": {"lokasi": "Lantai Lower Ground (LG)", "deskripsi": "di bawah toko buku"},
+        "toko buku": {"lokasi": "Lantai Ground (G), Sektor Utara", "deskripsi": "di sebelah kedai kopi terkenal"},
+        "atm center": {"lokasi": "Lantai Lower Ground (LG)", "deskripsi": "di dekat pintu masuk supermarket"}
+    }
