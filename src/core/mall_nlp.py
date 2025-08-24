@@ -1,116 +1,116 @@
+# mall_nlp.py (Upgraded)
+
 import json
 import random
 from src.config.config import AppConfig
 
 class MallNLP:
     """
-    A simple rule-based NLP engine that loads its configuration from JSON files.
+    An upgraded, more robust NLP engine that provides location-specific directions
+    and suggests related locations.
     """
-    def __init__(self):
-        """
-        Initializes the NLP engine by loading the knowledge base and NLP config.
-        """
+    def __init__(self, stand_id="stand_pintu_timur"):
+        self.stand_id = stand_id
         self.knowledge_base = self._load_json(AppConfig.KNOWLEDGE_BASE_PATH)
         self.config = self._load_json(AppConfig.NLP_CONFIG_PATH)
         
-        # Load intents and fallback response from the config file
         self.intents = self.config.get('intents', {})
         self.fallback_response = self.config.get('fallback_response', "Maaf, saya tidak mengerti.")
+        print(f"Upgraded NLP Engine initialized for stand: '{self.stand_id}'")
 
     def _load_json(self, path):
-        """A helper function to load a JSON file with error handling."""
+        """Helper function to load a JSON file with error handling."""
         try:
             with open(path, 'r', encoding='utf-8') as f:
-                print(f"File '{path}' loaded successfully.")
                 return json.load(f)
-        except FileNotFoundError:
-            print(f"ERROR: Configuration file not found at '{path}'.")
-            return {}
-        except json.JSONDecodeError:
-            print(f"ERROR: Could not decode JSON from '{path}'.")
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            print(f"ERROR: Could not load or parse JSON from '{path}'. Details: {e}")
             return {}
 
     def process_sentence(self, sentence):
         """
-        Processes a sentence to find an intent and generate a response.
+        Legacy method for basic processing. Returns only the answer string.
+        """
+        answer, _ = self.process_sentence_with_suggestions(sentence)
+        return answer
+
+    def process_sentence_with_suggestions(self, sentence):
+        """
+        Processes a sentence to find an answer and generate relevant suggestions.
+        
+        Returns:
+            tuple: (answer_string, suggestions_list)
         """
         sentence = sentence.lower().strip()
         if not sentence:
-            return "Maaf, saya tidak mengerti. Silakan coba lagi."
+            return "Maaf, saya tidak mengerti. Silakan coba lagi.", []
 
+        # Upgraded Entity & Intent Matching
+        found_entity_key = self._find_entity(sentence)
+        found_intent_key = self._find_intent(sentence)
+
+        # Decision Logic
+        if found_intent_key == 'find_location' and found_entity_key:
+            answer = self._handle_find_location(found_entity_key)
+            suggestions = self._get_suggestions(found_entity_key)
+            return answer, suggestions
+        
+        elif found_entity_key:
+            answer = self._handle_find_location(found_entity_key)
+            suggestions = self._get_suggestions(found_entity_key)
+            return answer, suggestions
+
+        elif found_intent_key:
+            responses = self.intents[found_intent_key].get('responses', [])
+            answer = random.choice(responses) if responses else self.fallback_response
+            return answer, []
+        
+        # If nothing is found
+        return self.fallback_response.format(sentence=sentence), []
+
+    def _find_entity(self, sentence):
+        """Finds the most relevant entity by matching keywords."""
+        for key, data in self.knowledge_base.items():
+            # The entity's own key and its keywords are all searchable terms
+            search_terms = data.get('keywords', []) + [key.replace('_', ' ')]
+            if any(term in sentence for term in search_terms):
+                return key
+        return None
+        
+    def _find_intent(self, sentence):
+        """Finds the first matching intent from the sentence."""
         for intent_name, intent_data in self.intents.items():
             if any(keyword in sentence for keyword in intent_data.get('keywords', [])):
-                
-                if intent_name == 'find_location':
-                    return self._handle_find_location(sentence)
-                else:                    
-                    responses = intent_data.get('responses', [])
-                    return random.choice(responses) if responses else self.fallback_response.format(sentence=sentence)
-        
-        return self.fallback_response.format(sentence=sentence)
+                return intent_name
+        return None
 
-    def _handle_find_location(self, sentence):
-        """
-        Handles the 'find_location' intent by extracting the entity.
-        """
-        for location_key in self.knowledge_base.keys():
-            if location_key in sentence:
-                location_info = self.knowledge_base[location_key]
-                return f"{location_key.title()} berada di {location_info['lokasi']}, {location_info['deskripsi']}."
+    def _handle_find_location(self, entity_key):
+        """Generates a response for a found location."""
+        location_info = self.knowledge_base.get(entity_key, {})
         
-        return "Maaf, saya tidak dapat menemukan lokasi yang Anda sebutkan. Coba sebutkan nama toko atau tempat yang lebih spesifik?"
-
-# --- Example Usage ---
-if __name__ == "__main__":
-    mall_data = {
-        "toko sepatu": {"lokasi": "Lantai 2, Sektor Barat", "deskripsi": "di dekat eskalator utama"},
-        "toilet": {"lokasi": "Lantai 1, Sektor Timur", "deskripsi": "di sebelah food court"},
-        "food court": {"lokasi": "Lantai 1, Sektor Timur", "deskripsi": "di dekat pintu masuk utama"},
-        "bioskop": {"lokasi": "Lantai 3, Sektor Utara", "deskripsi": "naik eskalator dari toko buku"}
-    }
-    with open('mall_knowledge_base.json', 'w', encoding='utf-8') as f:
-        json.dump(mall_data, f, indent=2)
+        # Prioritize directions specific to the current stand
+        directions = location_info.get('directions', {}).get(self.stand_id)
+        if directions:
+            return directions
         
-    nlp_config_data = {
-      "intents": {
-        "find_location": {
-            "keywords": ["di mana", "dmn", "cari", "lokasi", "letak"], 
-            "responses": []
-        },
-        "greeting": {
-            "keywords": ["halo", "hai", "selamat pagi", "pagi", "selamat siang", "siang"], 
-            "responses": ["Halo! Ada yang bisa saya bantu?"]
-        },
-        "goodbye": {
-            "keywords": ["dah", "sampai jumpa"], 
-            "responses": ["Sampai jumpa lagi!"]
-        },
-        "thank_you": {
-            "keywords": ["terima kasih", "makasih", "tks"], 
-            "responses": ["Sama-sama!"]
-        }
-      },
-      "fallback_response": "Maaf, saya belum mengerti '{sentence}'. Coba tanyakan lokasi sesuatu."
-    }
-    with open('nlp_config.json', 'w', encoding='utf-8') as f:
-        json.dump(nlp_config_data, f, indent=2)
+        # Fallback to generic location and description
+        nama = location_info.get('nama_display', entity_key.replace('_', ' ').title())
+        lokasi = location_info.get('lokasi', 'lokasi tidak diketahui')
+        deskripsi = location_info.get('deskripsi', '')
+        return f"{nama} berada di {lokasi}, {deskripsi}."
 
-    # Now, initialize and test the NLP engine
-    nlp_engine = MallNLP()
-    
-    print("\n--- Testing NLP Engine ---")
-    test_sentences = [
-        "DI MANA TOKO SEPATU",
-        "halo",
-        "toilet dmn?", # <-- Added shortened test case
-        "terima kasih banyak",
-        "tks", # <-- Added shortened test case
-        "bioskop di mana ya",
-        "saya mau makan",
-        "sampai jumpa"
-    ]
-    
-    for text in test_sentences:
-        response = nlp_engine.process_sentence(text)
-        print(f"User    : {text}")
-        print(f"Bot     : {response}\n" + "-"*20)
+    def _get_suggestions(self, found_entity_key, count=2):
+        """Generates a list of suggested questions based on category."""
+        found_entity_data = self.knowledge_base.get(found_entity_key, {})
+        category = found_entity_data.get('kategori')
+        if not category:
+            return []
+
+        suggestions = []
+        for key, data in self.knowledge_base.items():
+            if key != found_entity_key and data.get('kategori') == category:
+                display_name = data.get('nama_display', key.replace('_', ' ').title())
+                suggestions.append(f"Di mana lokasi {display_name}?")
+        
+        random.shuffle(suggestions)
+        return suggestions[:count]

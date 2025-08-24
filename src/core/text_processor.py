@@ -88,7 +88,6 @@ class TextProcessor:
         
         return suggestions
 
-# --- Standalone Test ---
 if __name__ == '__main__':
     # Create dummy knowledge base and config for testing
     mall_data = {
@@ -105,13 +104,13 @@ if __name__ == '__main__':
         
     processor = TextProcessor()
     
-    print("\n--- Testing Auto-Correction ---")
+    print("\n Testing Auto-Correction ")
     correction_cases = ["dmntoilet", "caritokosepatu", "dimanabioskop"]
     for case in correction_cases:
         corrected = processor.correct_sentence(case)
         print(f"Raw: '{case}' -> Corrected: '{corrected}'")
         
-    print("\n--- Testing Auto-Completion ---")
+    print("\n Testing Auto-Completion ")
     completion_cases = ["d", "di mana t", "food c"]
     for case in completion_cases:
         suggestions = processor.get_suggestions(case)

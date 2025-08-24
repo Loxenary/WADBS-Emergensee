@@ -10,18 +10,42 @@ class TextEntryPage(QWidget):
         self.response_service = response_service
         self.text_processor = text_processor
 
-        layout = QVBoxLayout(self); layout.setAlignment(Qt.AlignmentFlag.AlignCenter); layout.setSpacing(10); layout.setContentsMargins(30,30,30,30)
+        layout = QVBoxLayout(self)
+        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.setSpacing(10)
+        layout.setContentsMargins(30,30,30,30)
         
-        title = QLabel("How can we help you?"); title.setFont(QFont("Arial", 20)); title.setStyleSheet("color: white;"); title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        title = QLabel("How can we help you?")
+        title.setFont(QFont("Arial", 20))
+        title.setStyleSheet("color: white;")
+        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        self.text_input = QTextEdit(); self.text_input.setPlaceholderText("Enter text here..."); self.text_input.setFont(QFont("Arial", 14)); self.text_input.setStyleSheet("background-color: #F0F0F0; border-radius: 15px; padding: 10px;"); self.text_input.setFixedHeight(150)
+        self.text_input = QTextEdit()
+        self.text_input.setPlaceholderText("Enter text here...")
+        self.text_input.setFont(QFont("Arial", 14))
+        self.text_input.setStyleSheet("background-color: #F0F0F0; border-radius: 15px; padding: 10px; color: black;")
+        self.text_input.setFixedHeight(150)
         
-        self.suggestion_list = QListWidget(); self.suggestion_list.setFont(QFont("Arial", 12)); self.suggestion_list.setStyleSheet("background-color: #444; color: white; border-radius: 10px;"); self.suggestion_list.setFixedHeight(80); self.suggestion_list.hide()
+        self.suggestion_list = QListWidget()
+        self.suggestion_list.setFont(QFont("Arial", 12))
+        self.suggestion_list.setStyleSheet("background-color: #444; color: white; border-radius: 10px;")
+        self.suggestion_list.setFixedHeight(80)
+        self.suggestion_list.hide()
         
-        submit = QPushButton("Submit"); submit.setFont(QFont("Arial", 16)); submit.setStyleSheet("QPushButton { background-color: #D37A7A; color: white; border-radius: 15px; padding: 15px; }"); submit.clicked.connect(self.submit_text)
-        back = QPushButton("Back"); back.clicked.connect(lambda: self.parent.navigateToPage(1))
+        submit = QPushButton("Submit")
+        submit.setFont(QFont("Arial", 16))
+        submit.setStyleSheet("QPushButton { background-color: #D37A7A; color: white; border-radius: 15px; padding: 15px; }")
+        submit.clicked.connect(self.submit_text)
+        back = QPushButton("Back") 
+        back.clicked.connect(lambda: self.parent.navigateToPage(1))
+
         
-        layout.addWidget(title); layout.addWidget(self.text_input); layout.addWidget(self.suggestion_list); layout.addWidget(submit); layout.addStretch(); layout.addWidget(back, alignment=Qt.AlignmentFlag.AlignRight)
+        layout.addWidget(title)
+        layout.addWidget(self.text_input)
+        layout.addWidget(self.suggestion_list)
+        layout.addWidget(submit)
+        layout.addStretch()
+        layout.addWidget(back, alignment=Qt.AlignmentFlag.AlignRight)
 
         self.text_input.textChanged.connect(self.update_suggestions)
         self.suggestion_list.itemClicked.connect(self.apply_suggestion)
@@ -46,5 +70,6 @@ class TextEntryPage(QWidget):
         self.suggestion_list.hide()
 
     def submit_text(self):
-        QMetaObject.invokeMethod(self.response_service, "process_final_sentence", Qt.ConnectionType.QueuedConnection, Q_ARG(str, self.text_input.toPlainText())); self.text_input.clear()
+        QMetaObject.invokeMethod(self.response_service, "process_final_sentence", Qt.ConnectionType.QueuedConnection, Q_ARG(str, self.text_input.toPlainText()))
+        self.text_input.clear()
 

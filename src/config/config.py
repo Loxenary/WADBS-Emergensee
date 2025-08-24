@@ -1,21 +1,30 @@
+import sys
+import os
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 class AppConfig:
     """
     A centralized configuration class for the application.
-    It holds all static data, paths, and model parameters.
+    It now uses the resource_path function to create portable file paths.
     """
-    # These paths are relative to the project's root directory.
-    MODEL_PATH = "models/sign_language_model.h5"
-    LABELS_PATH = "config/labels.json"
-    KNOWLEDGE_BASE_PATH = "config/mall_knowledge_base.json"
-    NLP_CONFIG_PATH = "config/nlp_config.json"
-    RECORDED_SIGNS_PATH = "recorded_signs.csv"
+    # File Paths
+    MODEL_PATH = resource_path("models/sibi_asl_robust_model.h5")
+    LABELS_PATH = resource_path("config/labels.json")
+    KNOWLEDGE_BASE_PATH = resource_path("config/mall_knowledge_base.json")
+    NLP_CONFIG_PATH = resource_path("config/nlp_config.json")
+    RECORDED_SIGNS_PATH = "recorded_signs.csv" 
 
-    # The minimum confidence level required from the model to consider a prediction valid.
-    CONFIDENCE_THRESHOLD = 0.65
-
-    # The number of frames the recognizer looks at to make a single prediction.
+    # Recognizer Parameters
+    CONFIDENCE_THRESHOLD = 0.4
     SEQUENCE_LENGTH = 15
 
-    # The number of consecutive, identical predictions required before a letter is
-    # added to the sentence. This prevents flickering predictions.
+    # Sentence Building Parameters
     STABILITY_THRESHOLD = 3

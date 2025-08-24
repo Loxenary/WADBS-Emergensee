@@ -21,3 +21,6 @@ SIBI_Alphabet_Dataset/
 
 # User-generated data
 recorded_signs.csv
+
+dist/
+build/

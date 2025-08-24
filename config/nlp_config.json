@@ -1,47 +1,72 @@
- {
-      "intents": {
+{
+    "intents": {
         "find_location": {
-            "keywords": ["di mana", "dmn", "mana", "cari", "lokasi", "letak", "ada di mana"], 
+            "keywords": [
+                "di mana", "dmn", "mana", "cari", "lokasi", "letak", 
+                "ada di mana", "arah ke", "gimana cara ke", "tunjukkan"
+            ],
             "responses": []
         },
         "greeting": {
-            "keywords": ["halo", "hai", "selamat pagi", "pagi", "selamat siang", "siang", "selamat sore", "sore", "selamat malam", "malam"], 
+            "keywords": [
+                "halo", "hai", "selamat pagi", "pagi", "selamat siang", "siang", 
+                "selamat sore", "sore", "selamat malam", "malam", "permisi"
+            ],
             "responses": [
-                "Halo! Ada yang bisa saya bantu?", 
-                "Hai! Selamat datang di mal. Ada yang bisa dibantu?",
+                "Halo! Ada yang bisa saya bantu?",
+                "Hai! Selamat datang. Ada yang perlu dibantu?",
                 "Selamat datang! Silakan tanyakan jika butuh bantuan."
             ]
         },
         "goodbye": {
-            "keywords": ["dah", "sampai jumpa", "selamat tinggal", "duluan ya"], 
+            "keywords": [
+                "dah", "sampai jumpa", "selamat tinggal", "duluan ya", "terima kasih"
+            ],
             "responses": [
-                "Sampai jumpa lagi!", 
-                "Selamat jalan!", 
-                "Hati-hati di jalan!"
+                "Sampai jumpa lagi!",
+                "Selamat jalan dan hati-hati di jalan!"
             ]
         },
         "thank_you": {
-            "keywords": ["terima kasih", "makasih", "tks", "thanks", "makasih ya"], 
+            "keywords": [
+                "terima kasih", "makasih", "tks", "thanks", "makasih ya", "terbantu"
+            ],
             "responses": [
-                "Sama-sama! Senang bisa membantu.", 
-                "Dengan senang hati!", 
+                "Sama-sama! Senang bisa membantu.",
+                "Dengan senang hati!",
                 "Tentu, kembali lagi jika butuh bantuan."
             ]
         },
         "about_bot": {
-            "keywords": ["kamu siapa", "ini apa", "bisa apa"],
+            "keywords": ["kamu siapa", "ini apa", "bisa apa saja", "fungsi kamu"],
             "responses": [
-                "Saya adalah asisten virtual mal. Saya bisa membantu Anda mencari lokasi.",
-                "Saya asisten untuk membantu navigasi di mal ini."
+                "Saya adalah asisten virtual mal. Saya dapat membantu Anda menemukan lokasi toko, fasilitas, dan memberikan arah.",
+                "Saya asisten navigasi di mal ini. Tanyakan saja lokasi yang Anda cari."
             ]
         },
         "opening_hours": {
-            "keywords": ["buka jam berapa", "jam buka", "tutup jam berapa", "jam operasional"],
+            "keywords": [
+                "buka jam berapa", "jam buka", "tutup jam berapa", "jam operasional", "jadwal mal"
+            ],
             "responses": [
-                "Mal ini buka dari jam 10 pagi sampai 10 malam.",
-                "Jam operasional kami adalah dari pukul 10.00 hingga 22.00."
+                "Mal ini buka setiap hari dari jam 10 pagi sampai jam 10 malam.",
+                "Jam operasional kami adalah dari pukul 10.00 hingga 22.00 WIB."
+            ]
+        },
+        "ask_event": {
+            "keywords": ["ada acara", "ada event", "diskon", "promo", "ada yang baru"],
+            "responses": [
+                "Saat ini sedang ada promo 'Midnight Sale' di department store lantai 1. Untuk info lebih lanjut, silakan kunjungi pusat informasi.",
+                "Anda bisa cek jadwal event terbaru di pusat informasi yang terletak di lobi utama, Lantai Ground."
+            ]
+        },
+        "ask_parking": {
+            "keywords": ["parkir", "parkiran", "parkir motor", "parkir mobil"],
+            "responses": [
+                "Parkir mobil tersedia di lantai P3 hingga P5. Parkir motor ada di Basement 1 (B1).",
+                "Area parkir sangat luas. Anda bisa masuk dari Pintu Utara untuk mobil atau Pintu Selatan untuk motor."
             ]
         }
-      },
-      "fallback_response": "Maaf, saya belum mengerti '{sentence}'. Coba tanyakan lokasi sesuatu."
+    },
+    "fallback_response": "Maaf, saya belum mengerti. Anda bisa tanyakan 'di mana lokasi toilet?'"
 }

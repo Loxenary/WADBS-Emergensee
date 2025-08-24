@@ -24,9 +24,21 @@ class WelcomePage(QWidget):
 
         layout.addWidget(welcome_label)
         layout.addWidget(logo_label)
+        
+        self.timer = None
 
-        self.timer = self.startTimer(2000) 
+    def showEvent(self, event):
+        """This method is called every time the widget is shown."""
+        # Start the timer whenever the page becomes visible.
+        if self.timer is None:
+            self.timer = self.startTimer(2000) 
+        super().showEvent(event)
 
     def timerEvent(self, event):
-        self.killTimer(self.timer)
+        """This method is called when the timer finishes."""
+        if self.timer is not None:
+            self.killTimer(self.timer)
+            self.timer = None
+        
+        # Navigate to the selection page.
         self.parent.navigateToPage(1)

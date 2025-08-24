@@ -1,10 +1,92 @@
 {
-        "toko sepatu": {"lokasi": "Lantai 2, Sektor Barat", "deskripsi": "di dekat eskalator utama"},
-        "toilet": {"lokasi": "Lantai 1, Sektor Timur", "deskripsi": "di sebelah food court"},
-        "food court": {"lokasi": "Lantai 3, Sektor Timur", "deskripsi": "di dekat pintu masuk utama dari parkir P3"},
-        "bioskop": {"lokasi": "Lantai 4 (Paling Atas)", "deskripsi": "naik eskalator dari food court"},
-        "mushola": {"lokasi": "Lantai Basement 1 (B1)", "deskripsi": "di dekat area parkir motor"},
-        "supermarket": {"lokasi": "Lantai Lower Ground (LG)", "deskripsi": "di bawah toko buku"},
-        "toko buku": {"lokasi": "Lantai Ground (G), Sektor Utara", "deskripsi": "di sebelah kedai kopi terkenal"},
-        "atm center": {"lokasi": "Lantai Lower Ground (LG)", "deskripsi": "di dekat pintu masuk supermarket"}
+    "toko_sepatu": {
+        "nama_display": "Toko Sepatu",
+        "kategori": "fashion",
+        "keywords": ["sepatu", "alas kaki", "sandal", "toko sepatu", "sneakers"],
+        "lokasi": "Lantai 2, Sektor Barat",
+        "deskripsi": "Berbagai merek sepatu ternama ada di dekat eskalator utama.",
+        "directions": {
+            "stand_pintu_timur": "Dari sini, jalan lurus ke eskalator utama, naik ke Lantai 2. Toko Sepatu ada di sebelah kiri Anda."
+        }
+    },
+    "toilet": {
+        "nama_display": "Toilet",
+        "kategori": "fasilitas",
+        "keywords": ["toilet", "wc", "kamar kecil", "restroom", "kamar mandi"],
+        "lokasi": "Lantai 1, Sektor Timur",
+        "deskripsi": "Toilet terdekat ada di sebelah food court.",
+        "directions": {
+            "stand_pintu_timur": "Dari sini, belok kanan dan jalan lurus terus. Toilet berada di sebelah kanan sebelum area Food Court."
+        }
+    },
+    "food_court": {
+        "nama_display": "Food Court",
+        "kategori": "kuliner",
+        "keywords": ["food court", "makan", "lapar", "haus", "minum", "resto", "restoran", "tempat makan"],
+        "lokasi": "Lantai 3, Sektor Timur",
+        "deskripsi": "Area dengan beragam pilihan makanan dan minuman.",
+        "directions": {
+            "stand_pintu_timur": "Naik eskalator di depan Anda ke Lantai 3. Food Court akan langsung terlihat."
+        }
+    },
+    "bioskop": {
+        "nama_display": "Bioskop",
+        "kategori": "hiburan",
+        "keywords": ["bioskop", "film", "nonton", "cinema", "xxi", "cgv"],
+        "lokasi": "Lantai 4 (Paling Atas)",
+        "deskripsi": "Menayangkan film-film terbaru.",
+        "directions": {
+            "stand_pintu_timur": "Naik eskalator ke Lantai 3 (Food Court), lalu gunakan eskalator di area Food Court untuk naik ke Lantai 4."
+        }
+    },
+    "mushola": {
+        "nama_display": "Mushola",
+        "kategori": "fasilitas",
+        "keywords": ["mushola", "shalat", "sholat", "solat", "ibadah", "masjid", "tempat sholat"],
+        "lokasi": "Lantai Basement 1 (B1)",
+        "deskripsi": "Tempat ibadah yang nyaman di dekat area parkir motor.",
+        "directions": {
+            "stand_pintu_timur": "Turun menggunakan lift atau eskalator ke lantai B1. Mushola berada di area dekat parkir motor."
+        }
+    },
+    "supermarket": {
+        "nama_display": "Supermarket",
+        "kategori": "belanja",
+        "keywords": ["supermarket", "belanja bulanan", "kebutuhan harian", "hypermarket", "transmart", "hero"],
+        "lokasi": "Lantai Lower Ground (LG)",
+        "deskripsi": "Menyediakan kebutuhan harian dan bahan makanan.",
+        "directions": {
+            "stand_pintu_timur": "Turun eskalator di depan Anda ke Lantai LG. Supermarket ada di sisi kanan."
+        }
+    },
+    "toko_buku": {
+        "nama_display": "Toko Buku",
+        "kategori": "belanja",
+        "keywords": ["toko buku", "buku", "novel", "majalah", "gramedia", "periplus"],
+        "lokasi": "Lantai Ground (G), Sektor Utara",
+        "deskripsi": "Koleksi buku lengkap di sebelah kedai kopi.",
+        "directions": {
+            "stand_pintu_timur": "Dari sini, belok kiri dan jalan lurus ke ujung koridor utara. Toko Buku ada di sebelah kiri."
+        }
+    },
+    "atm_center": {
+        "nama_display": "ATM Center",
+        "kategori": "fasilitas",
+        "keywords": ["atm center", "atm", "ambil uang", "tarik tunai", "bca", "mandiri", "bni"],
+        "lokasi": "Lantai Lower Ground (LG)",
+        "deskripsi": "Tersedia ATM dari berbagai bank besar.",
+        "directions": {
+            "stand_pintu_timur": "Turun eskalator ke Lantai LG. ATM Center berada di dekat pintu masuk Supermarket."
+        }
+    },
+    "pusat_informasi": {
+        "nama_display": "Pusat Informasi",
+        "kategori": "fasilitas",
+        "keywords": ["informasi", "bantuan", "tanya", "customer service", "concierge"],
+        "lokasi": "Lantai Ground (G), Lobi Utama",
+        "deskripsi": "Staf kami siap membantu menjawab pertanyaan Anda.",
+        "directions": {
+            "stand_pintu_timur": "Jalan lurus saja dari sini menuju lobi utama, meja informasi ada di tengah."
+        }
     }
+}

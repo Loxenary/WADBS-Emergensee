@@ -2,68 +2,104 @@ import sys
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                              QHBoxLayout, QLabel, QPushButton, QTextEdit, QStackedWidget,
                              QSizePolicy)
-from PyQt6.QtGui import QFont, QIcon, QPixmap
+from PyQt6.QtGui import QFont, QIcon, QPixmap, QPainter, QColor
 from PyQt6.QtCore import Qt, QSize
 
 class ModeSelectionPage(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(30, 30, 30, 30)
-        layout.setSpacing(20)
-        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        # Main vertical layout
+        main_layout = QVBoxLayout(self)
+        main_layout.setContentsMargins(20, 20, 20, 20)
+        main_layout.setSpacing(20)
+        main_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        # --- Help Me Hear Section ---
-        help_hear_button = QPushButton("Help me HEAR")
-        help_hear_button.setFont(QFont("Arial", 18))
-        help_hear_button.setStyleSheet("""
+        # Header layout for the back button
+        header_layout = QHBoxLayout()
+        
+        # Back Button
+        back_btn = QPushButton("←")
+        back_btn.setFont(QFont("Arial", 24, QFont.Weight.Bold))
+        back_btn.setFixedSize(50, 50)
+        back_btn.setStyleSheet("""
             QPushButton {
-                background-color: #D37A7A; color: white; 
-                border-radius: 15px; padding: 20px;
+                color: #FFFFFF;
+                background-color: transparent;
+                border: none;
+                border-radius: 25px;
             }
-            QPushButton:hover { background-color: #E08C8C; }
+            QPushButton:hover {
+                background-color: #444444;
+            }
+        """)
+        back_btn.clicked.connect(lambda: self.parent.navigateToPage(0)) 
+        
+        header_layout.addWidget(back_btn)
+        header_layout.addStretch()
+
+        # Buttons layout
+        buttons_layout = QVBoxLayout()
+        buttons_layout.setSpacing(25)
+        buttons_layout.addStretch(1) 
+
+        sign_button = self.create_mode_button("I would like to", "SIGN")
+        type_button = self.create_mode_button("I would like to", "TYPE")
+        speak_button = self.create_mode_button("I would like to", "SPEAK")
+        
+        sign_button.clicked.connect(lambda: self.parent.navigateToPage(2))
+        type_button.clicked.connect(lambda: self.parent.navigateToPage(3)) 
+
+        buttons_layout.addWidget(sign_button)
+        buttons_layout.addWidget(type_button)
+        buttons_layout.addWidget(speak_button)
+        buttons_layout.addStretch(1) 
+
+        # Add header and buttons to the main layout
+        main_layout.addLayout(header_layout)
+        main_layout.addLayout(buttons_layout)
+
+    def create_mode_button(self, top_text, bottom_text):
+        """Helper function to create a styled button with two lines of text."""
+        button = QPushButton()
+        button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        button.setMinimumHeight(150) # Ensure buttons are large
+        
+        # Layout for the text inside the button
+        button_layout = QVBoxLayout(button)
+        button_layout.setContentsMargins(0, 0, 0, 0)
+        button_layout.setSpacing(5)
+        button_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        # Top line of text
+        top_label = QLabel(top_text)
+        top_label.setFont(QFont("Inter", 22, QFont.Weight.Light))
+        top_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        # Bottom line of text
+        bottom_label = QLabel(bottom_text)
+        bottom_label.setFont(QFont("Inter", 48, QFont.Weight.Bold))
+        bottom_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        button_layout.addWidget(top_label)
+        button_layout.addWidget(bottom_label)
+
+        button.setStyleSheet("""
+            QPushButton {
+                background-color: #990000; /* Dark Red */
+                color: white;
+                border: none;
+                border-radius: 20px;
+                padding: 20px;
+            }
+            QPushButton:hover {
+                background-color: #B30000; /* Lighter Red on hover */
+            }
+            QLabel {
+                background-color: transparent;
+                color: white;
+            }
         """)
         
-        # --- Help Me Speak Section ---
-        help_speak_button = QPushButton("Help me SPEAK")
-        help_speak_button.setFont(QFont("Arial", 18))
-        help_speak_button.setStyleSheet("""
-            QPushButton {
-                background-color: #F0F0F0; color: #333; 
-                border-radius: 15px; padding: 20px;
-            }
-            QPushButton:hover { background-color: #FFFFFF; }
-        """)
-
-        # --- Sub-buttons for SPEAK ---
-        self.sign_button = QPushButton("I would like to SIGN")
-        self.sign_button.setFont(QFont("Arial", 16))
-        self.sign_button.clicked.connect(lambda: self.parent.navigateToPage(2)) # Go to Record Page
-        
-        self.type_button = QPushButton("I would like to TYPE")
-        self.type_button.setFont(QFont("Arial", 16))
-        self.type_button.clicked.connect(lambda: self.parent.navigateToPage(3)) # Go to Text Entry Page
-
-        for btn in [self.sign_button, self.type_button]:
-            btn.setStyleSheet("""
-                QPushButton {
-                    background-color: #D37A7A; color: white; 
-                    border-radius: 15px; padding: 15px;
-                }
-                QPushButton:hover { background-color: #E08C8C; }
-            """)
-            btn.hide() # Initially hidden
-
-        help_speak_button.clicked.connect(self.toggle_speak_options)
-
-        layout.addWidget(help_hear_button)
-        layout.addWidget(help_speak_button)
-        layout.addWidget(self.sign_button)
-        layout.addWidget(self.type_button)
-        layout.addStretch()
-
-    def toggle_speak_options(self):
-        # Show/hide the sign and type buttons
-        self.sign_button.setVisible(not self.sign_button.isVisible())
-        self.type_button.setVisible(not self.type_button.isVisible())
+        return button
